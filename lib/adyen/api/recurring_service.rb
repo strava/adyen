@@ -167,18 +167,16 @@ module Adyen
         end
 
         def parse_additional_data(xpath)
-          if xpath.empty?
-            {}
-          else
-            results = {}
-            xpath.map do |node|
-              key = node.text('./recurring:entry/recurring:key')
-              value = node.text('./recurring:entry/recurring:value')
-              results[key] = value unless key.empty?
-            end
+          return {} if xpath.empty?
 
-            results
+          results = {}
+          xpath.map do |node|
+            key = node.text('./recurring:entry/recurring:key')
+            value = node.text('./recurring:entry/recurring:value')
+            results[key] = value unless key.empty?
           end
+
+          results
         end
       end
 
